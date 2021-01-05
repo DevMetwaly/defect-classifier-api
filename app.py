@@ -20,9 +20,36 @@ def string_to_number(str):
   return(res)
 
 sol_urls = {
-  "short": "shortURL",
-  "spurious":"spuriousURL",
-  "spur": "spurURL",
+  "short": """To repair “short” defect (we apply the way of Etching.
+Etching is a "subtractive" method used for elimination of the excess copper from a PCB which an acid is used to remove unwanted copper from a PCB. 
+
+To get rid of all unwanted copper follow these etching steps:
+1.	applying a temporary mask that protects parts of the desired copper from the acid and keeps it untouched
+2.	Put the board in the acid (ferric chloride (Eisen-3-Chlorid) and Sodium Persulfate) tank for about 20 minutes until the unwanted copper are completely etched. 
+3.	Move the board into the rinse tank for a few seconds in order to clean it from the acid. You can also use an Isopropanol spray for cleaning.
+4.	Dry the board with a cloth.
+5.	After that paint the place of etching with solder mask to make sure that will be no electric conductance in that place.
+""",
+  "spurious":"""To repair “spurious copper” defect we apply the way of Etching.
+Etching is a "subtractive" method used for elimination of the excess copper from a PCB which an acid is used to remove unwanted copper from a PCB. 
+
+To get rid of all unwanted copper follow these etching steps:
+1.	applying a temporary mask that protects parts of the desired copper from the acid and keeps it untouched
+2.	Put the board in the acid (ferric chloride (Eisen-3-Chlorid) and Sodium Persulfate) tank for about 20 minutes until the unwanted copper are completely etched. 
+3.	Move the board into the rinse tank for a few seconds in order to clean it from the acid. You can also use an Isopropanol spray for cleaning.
+4.	Dry the board with a cloth.
+5.	After that paint the place of etching with solder mask to make sure that will be no electric conductance in that place.
+""",
+  "spur": """To repair ‘spur’ defect we apply the way of Etching.
+Etching is a ‘subtractive’ method used for elimination of the excess copper from a PCB which an acid is used to remove unwanted copper from a PCB. 
+
+To get rid of all unwanted copper follow these etching steps:
+1.	applying a temporary mask that protects parts of the desired copper from the acid and keeps it untouched
+2.	Put the board in the acid (ferric chloride (Eisen-3-Chlorid) and Sodium Persulfate) tank for about 20 minutes until the unwanted copper are completely etched. 
+3.	Move the board into the rinse tank for a few seconds in order to clean it from the acid. You can also use an Isopropanol spray for cleaning.
+4.	Dry the board with a cloth.
+5.	After that paint the place of etching with solder mask to make sure that will be no electric conductance in that place.
+""",
   "not_defect":"Not detected defect type!"
 }
 
