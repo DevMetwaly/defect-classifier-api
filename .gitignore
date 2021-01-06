@@ -1,1 +1,4 @@
 defect-env/
+model/*
+contours/*
+diff_img/*
