@@ -2,3 +2,5 @@ defect-env/
 model/*
 contours/*
 diff_img/*
+*.pyc
+__pycache__/*

@@ -89,7 +89,7 @@ def detectEndPoint():
     image_differencing("test_temps/temp_img.png","test_temps/test_img.png",id)
     extract_defects_using_contours("diff_img/diff_" + id + ".png",id)
 
-    cnt = count_contours(id) # number of defects
+    cnt = 0 # number of defects
     defects = {
       "status": "success",
       "list":[]
@@ -107,8 +107,7 @@ def detectEndPoint():
           "solutionUrl":sol_urls[type]
         }
         defects["list"].append(img_def)
-      else:
-        cnt-=1
+        cnt+=1
     defects["numberOfDefects"] = cnt
     return defects, 200
 
