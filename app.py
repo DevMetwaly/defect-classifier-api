@@ -96,6 +96,8 @@ def detectEndPoint():
     }
     images = os.listdir("contours/"+id)
     for imageName in images:
+      if("big" in imageName):
+        continue
       image_defect_type = predict("contours/"+id+"/"+imageName)
       type = image_defect_type["Category"]
       if type != "not_defect":
@@ -123,8 +125,12 @@ def getImage():
   id = "ID"
   try:
     imageID = request.args.get("ImageId")
-    path = os.getcwd()+"/contours/"+id +"/" + imageID+".png"
-    return send_file(path)
+    if(imageID == "diff"):
+      path = os.getcwd()+"/diff_img/diff_ID.png"
+      return send_file(path)
+    else:
+      path = os.getcwd()+"/contours/"+id +"/" + imageID+".png"
+      return send_file(path)
 
   except Exception as e:
     res = {
