@@ -74,7 +74,9 @@ def call_function():
     print("Resources = ", res)
     return(jsonify(res))
 
-
+def imageIsColored(path):
+  im_gray = cv2.imread(path)
+  return not (im_gray[0][0][0] == im_gray[0][0][1] and im_gray[0][0][0] == im_gray[0][0][2])
 # ***** Mobile API Part ***** #
 @app.route("/Detect", methods=["GET"])
 def detectEndPoint():
@@ -83,6 +85,11 @@ def detectEndPoint():
     test_img= request.files["test_image"]
     temp_img.save(os.path.join("test_temps", "temp_img.png"))
     test_img.save(os.path.join("test_temps", "test_img.png"))
+
+    if imageIsColored(os.path.join("test_temps", "temp_img.png")):
+      convertToBw(os.path.join("test_temps", "temp_img.png"))
+      convertToBw(os.path.join("test_temps", "test_img.png"))
+
 
     id = "ID"
 
@@ -147,53 +154,54 @@ def convertToBw(path):
   im_bw = cv2.bitwise_not(im_bw)
   cv2.imwrite(path, im_bw)
   
-@app.route("/Detect/colored", methods=["GET"])
-def detectColoredEndPoint():
-  try:
-    temp_img= request.files["temp_image"]
-    test_img= request.files["test_image"]
-    temp_img.save(os.path.join("test_temps", "temp_img.png"))
-    test_img.save(os.path.join("test_temps", "test_img.png"))
-    print(os.path.join("test_temps", "test_img.png"))
-    convertToBw(os.path.join("test_temps", "temp_img.png"))
-    convertToBw(os.path.join("test_temps", "test_img.png"))
+# @app.route("/Detect/colored", methods=["GET"])
+# def detectColoredEndPoint():
+#   try:
+#     temp_img= request.files["temp_image"]
+#     test_img= request.files["test_image"]
+#     temp_img.save(os.path.join("test_temps", "temp_img.png"))
+#     test_img.save(os.path.join("test_temps", "test_img.png"))
+#     print(os.path.join("test_temps", "test_img.png"))
+#     convertToBw(os.path.join("test_temps", "temp_img.png"))
+#     convertToBw(os.path.join("test_temps", "test_img.png"))
     
 
-    id = "ID"
+#     id = "ID"
 
-    image_differencing("test_temps/temp_img.png","test_temps/test_img.png",id)
-    extract_defects_using_contours("diff_img/diff_" + id + ".png",id)
+#     image_differencing("test_temps/temp_img.png","test_temps/test_img.png",id)
+#     extract_defects_using_contours("diff_img/diff_" + id + ".png",id)
 
-    cnt = 0 # number of defects
-    defects = {
-      "status": "success",
-      "list":[]
-    }
-    images = os.listdir("contours/"+id)
-    for imageName in images:
-      if("big" in imageName):
-        continue
-      image_defect_type = predict("contours/"+id+"/"+imageName)
-      type = image_defect_type["Category"]
-      if type != "not_defect":
-        img_def = {
-          "ImageId": imageName[:-4],
-          "type": type,
-          "solutionUrl":sol_urls[type]
-        }
-        defects["list"].append(img_def)
-        cnt+=1
-    defects["numberOfDefects"] = cnt
-    return defects, 200
+#     cnt = 0 # number of defects
+#     defects = {
+#       "status": "success",
+#       "list":[]
+#     }
+#     images = os.listdir("contours/"+id)
+#     for imageName in images:
+#       if("big" in imageName):
+#         continue
+#       image_defect_type = predict("contours/"+id+"/"+imageName)
+#       type = image_defect_type["Category"]
+#       if type != "not_defect":
+#         img_def = {
+#           "ImageId": imageName[:-4],
+#           "type": type,
+#           "solutionUrl":sol_urls[type]
+#         }
+#         defects["list"].append(img_def)
+#         cnt+=1
+#     defects["numberOfDefects"] = cnt
+#     return defects, 200
 
-  except Exception as e:
-    print(e)
-    res = {
-      "status":"faild",
-      "message":"Some thing wrong!, try again later"
-      #"exception":str(e)
-    }
-    return res, 500
+#   except Exception as e:
+#     print(e)
+#     res = {
+#       "status":"faild",
+#       "message":"Some thing wrong!, try again later"
+#       #"exception":str(e)
+#     }
+#     return res, 500
+
 if __name__ == "__main__":
     app.debug = True
     app.run('0.0.0.0')
